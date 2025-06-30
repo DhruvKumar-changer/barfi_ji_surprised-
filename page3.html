@@ -120,6 +120,34 @@
       pointer-events: none;
       z-index: 20;
     }
+
+    .corner-img {
+      position: fixed;
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 24px;
+      border: 4px solid #ffb3da;
+      box-shadow: 0 0 18px #ffb3da;
+      z-index: 12;
+      background: #fff;
+      animation: cornerFloat 4s ease-in-out infinite alternate;
+    }
+    .bottom-left { bottom: 18px; left: 18px; }
+    .bottom-right { bottom: 18px; right: 18px; }
+
+    @keyframes bounceIn {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes cornerFloat {
+      0%   { transform: translateY(0) scale(1) rotate(0deg);}
+      20%  { transform: translateY(-12px) scale(1.04) rotate(-2deg);}
+      50%  { transform: translateY(8px) scale(1.03) rotate(2deg);}
+      80%  { transform: translateY(-6px) scale(1.01) rotate(-1deg);}
+      100% { transform: translateY(0) scale(1) rotate(0deg);}
+    }
   </style>
 </head>
 <body>
@@ -150,7 +178,7 @@
   <div class="hppyRain" id="hppyRain"></div>
 
   <!-- Audio for knife cut - REPLACE WITH YOUR AUDIO FILE -->
-  <audio id="cutSound" src="your-cut-sound.mp3" preload="auto"></audio>
+  <audio id="knifeSound" src="knifesound.mp3" preload="auto"></audio>
 
   <script>
     // Heart Rain
@@ -169,7 +197,7 @@
     // Knife Drag + Cake Cut Detection (mouse only)
     const knife = document.getElementById("knife");
     const cake = document.getElementById("cake");
-    const cutSound = document.getElementById("cutSound");
+    const cutSound = document.getElementById("knifeSound"); // id yahi hona chahiye
 
     let dragging = false;
     let hasCut = false; // To prevent multiple cuts/redirects
@@ -300,5 +328,9 @@
     `;
     document.head.appendChild(style);
   </script>
+
+  <!-- Bottom Corner Images -->
+  <img class="corner-img bottom-left" src="images/page31.gif" alt="Bottom Left">
+  <img class="corner-img bottom-right" src="images/page32.gif" alt="Bottom Right">
 </body>
 </html>
