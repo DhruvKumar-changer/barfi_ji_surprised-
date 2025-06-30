@@ -126,6 +126,48 @@
       transform: scale(1.05);
       box-shadow: 0 0 40px #ff66b2, 0 0 50px #ff99cc;
     }
+
+    /* Corner images styles */
+    .corner-img {
+      position: fixed;
+      width: 270px;
+      height: 270px;
+      object-fit: cover;
+      border-radius: 32px;
+      border: 5px solid #ffb3da;
+      box-shadow: 0 0 24px #ffb3da;
+      z-index: 10;
+      background: #fff;
+      animation: cornerFloat 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes cornerFloat {
+      0%   { transform: translateY(0) scale(1) rotate(0deg);}
+      20%  { transform: translateY(-18px) scale(1.04) rotate(-2deg);}
+      50%  { transform: translateY(12px) scale(1.03) rotate(2deg);}
+      80%  { transform: translateY(-10px) scale(1.01) rotate(-1deg);}
+      100% { transform: translateY(0) scale(1) rotate(0deg);}
+    }
+
+    .top-left {
+      top: 18px;
+      left: 18px;
+    }
+
+    .top-right {
+      top: 18px;
+      right: 18px;
+    }
+
+    .bottom-left {
+      bottom: 18px;
+      left: 18px;
+    }
+
+    .bottom-right {
+      bottom: 18px;
+      right: 18px;
+    }
   </style>
 </head>
 <body>
@@ -135,6 +177,12 @@
     <img src="images/gift box.png" alt="Gift Box" class="gift-img">
   </div>
   <button class="open-btn" onclick="openGift()">✨ Open It ✨</button>
+
+  <!-- 4 corners images -->
+  <img class="corner-img top-left" src="images/index4.gif" alt="corner1">
+  <img class="corner-img top-right" src="images/index3.gif" alt="corner2">
+  <img class="corner-img bottom-left" src="images/index2.gif" alt="corner3">
+  <img class="corner-img bottom-right" src="images/index1.gif" alt="corner4">
 
   <script>
     function openGift() {
@@ -146,7 +194,7 @@
       }});
     }
 
-    const heartEmojis = ['🧸', '💖', '💗', '💙', '💕', '✨', '🌸']; // More emoji variety
+    const heartEmojis = ['🧸', '💖', '💗', '💙', '💕', '✨', '🌸', 'barfu', 'mera barfu']; // "barfu" aur "mera barfu" add kiya
 
     function createHeart() {
       const heart = document.createElement("span");

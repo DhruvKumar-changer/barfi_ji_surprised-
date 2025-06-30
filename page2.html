@@ -140,6 +140,31 @@
     .btn:hover {
       transform: scale(1.05);
     }
+
+    .corner-img {
+      position: fixed;
+      width: 147px;
+      height: 147px;
+      object-fit: cover;
+      border-radius: 32px;
+      border: 5px solid #ffb3da;
+      box-shadow: 0 0 24px #ffb3da;
+      z-index: 10;
+      background: #fff;
+      animation: cornerFloat 4s ease-in-out infinite alternate;
+    }
+    .top-left { top: 18px; left: 18px; }
+    .top-right { top: 18px; right: 18px; }
+    .bottom-left { bottom: 18px; left: 18px; }
+    .bottom-right { bottom: 18px; right: 18px; }
+
+    @keyframes cornerFloat {
+      0%   { transform: translateY(0) scale(1) rotate(0deg);}
+      20%  { transform: translateY(-14px) scale(1.04) rotate(-2deg);}
+      50%  { transform: translateY(10px) scale(1.03) rotate(2deg);}
+      80%  { transform: translateY(-8px) scale(1.01) rotate(-1deg);}
+      100% { transform: translateY(0) scale(1) rotate(0deg);}
+    }
   </style>
 </head>
 <body>
@@ -148,6 +173,12 @@
   <div class="floatingHearts" id="heartsContainer"></div>
   <div class="message" id="messageBox"></div>
   <button class="btn" onclick="goToNext()">🎁 Click for Surprise</button>
+
+  <!-- Corner Images -->
+  <img class="corner-img top-left" src="images/page21.gif" alt="corner1">
+  <img class="corner-img top-right" src="images/page22.gif" alt="corner2">
+  <img class="corner-img bottom-left" src="images/page23.gif" alt="corner3">
+  <img class="corner-img bottom-right" src="images/page24.gif" alt="corner4">
 
   <script>
     const text = "Ruko thodaa jaldi kya hai surprise ki . Meri Barfi ji world ki sabse cute aur pyaari girl hai tu yeh surprise dena tu normal hai . Aaj mere liye bhi ek special day hai. Maine aapke liye ek surprise rakha hai. Barfu, apne pyaare-pyaare haathon se surprise pe click karo, mujhe yakeen hai esko dekh ke mera barfu ek cute c smile tho kar dega , jo meri life ki sabse badhi net worth hogi.";
