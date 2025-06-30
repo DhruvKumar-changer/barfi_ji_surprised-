@@ -1,0 +1,185 @@
+<!-- Page 7: Memories Gallery Animation Continued -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>More Memories with Barfi Ji</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&family=Pacifico&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #fff0f5, #dbeafe);
+      font-family: 'Baloo 2', cursive;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+      color: #1a237e;
+      position: relative;
+    }
+
+    .memory-box {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px 20px;
+      border-radius: 30px;
+      max-width: 90%;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+      z-index: 2;
+      animation: float 4s ease-in-out infinite;
+      transition: transform 0.3s ease; /* For hover effect */
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .memory-box:hover {
+      transform: translateY(-10px) scale(1.02); /* Subtle lift and scale on hover */
+    }
+
+    .memory-img {
+      width: 260px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #ff99cc;
+      margin-bottom: 15px;
+      opacity: 1;
+      transition: opacity 0.5s ease-in-out;
+      display: block; /* <-- yeh line change karo */
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .caption {
+      font-size: 20px;
+      padding: 0 10px;
+      color: #333366;
+      text-shadow: 1px 1px 2px #f8f8f8;
+      opacity: 1; /* Initial state for transition */
+      transition: opacity 0.5s ease-in-out; /* Smooth caption transition */
+    }
+
+    .next-btn {
+      margin-top: 30px;
+      padding: 14px 28px;
+      font-size: 20px;
+      background: linear-gradient(to right, #66ccff, #ff99cc);
+      border: none;
+      border-radius: 30px;
+      font-family: 'Pacifico', cursive;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ffccff;
+      animation: glowBtn 1.5s infinite alternate;
+      transition: transform 0.3s ease; /* Smooth transition for hover */
+    }
+
+    @keyframes glowBtn {
+      from { box-shadow: 0 0 10px #66ccff; }
+      to { box-shadow: 0 0 25px #ff99cc; }
+    }
+
+    .next-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .emojiRain span {
+      position: absolute;
+      opacity: 0.75;
+      animation: fall 12s linear infinite;
+      z-index: 1;
+      pointer-events: none;
+      transform-origin: center center;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Music (auto play, loop, controls hidden) -->
+  <audio id="bgMusic" src="music/story.mp3" autoplay loop></audio>
+
+  <div class="emojiRain" id="emojiContainer"></div>
+
+  <div class="memory-box">
+    <img src="images/barfi ji in distance.png" alt="Memory" class="memory-img" id="memoryImg">
+    <div class="caption" id="captionText">
+      9feb 2024 ko finally vo ferse dikhayi di mtlb aaspas koi nai tha , vo aur unki friend payal ji thi . unhone mere ko dekh liya aur hass padi aur gate taak maine follow kiya ,maine soch liya tha ki aaj tu enke pass jao ga aur enhe complimant donga jo ye desrve karti hai . fer gate taak maine unke piche tha unhe pta tha ki mai piche hoon aur mujhe dhyan se dekhne ke liye vo slow hogaye ki vohi hai jo follow kar raha hai .maine socha tho tha aaj rok lunga per chalte chalte vo gate taak chali gyi aur meri heartbeat aur jada badh gyi thi aur unhe rok nahi paya jaldi
+    </div>
+    <button class="next-btn" onclick="showNext()">Next Memory 💕</button>
+  </div>
+
+  <script>
+    const container = document.getElementById("emojiContainer");
+    const emojis = ['💗', '💖', '💙', '🧸', '💕', '🌸', '✨', '💫']; // More emoji variety
+
+    function createEmoji() {
+      const span = document.createElement('span');
+      span.innerText = emojis[Math.floor(Math.random() * emojis.length)] + ' D💙A';
+      span.style.left = Math.random() * 100 + 'vw';
+      span.style.top = '-20px';
+      span.style.fontSize = `${20 + Math.random() * 10}px`;
+      span.style.animationDuration = `${10 + Math.random() * 4}s`;
+      span.style.animationDelay = `-${Math.random() * 5}s`;
+      container.appendChild(span);
+      setTimeout(() => span.remove(), 14000);
+    }
+
+    setInterval(createEmoji, 300);
+
+    let currentIndex = 0;
+    const captions = [
+      "9feb 2024 ko finally vo ferse dikhayi di mtlb aaspas koi nai tha , vo aur unki friend payal ji thi . unhone mere ko dekh liya aur hass padi aur gate taak maine follow kiya ,maine soch liya tha ki aaj tu enke pass jao ga aur enhe complimant donga jo ye desrve karti hai . fer gate taak maine unke piche tha unhe pta tha ki mai piche hoon aur mujhe dhyan se dekhne ke liye vo slow hogaye ki vohi hai jo follow kar raha hai .maine socha tho tha aaj rok lunga per chalte chalte vo gate taak chali gyi aur meri heartbeat aur jada badh gyi thi aur unhe rok nahi paya jaldi ",
+      "aur vo road ki dosri side chali gayi main bahut sad hogya ki aaj fer se pari ko kuch keh nahi paya per vo madam ji vapis aagayi gate ke pas aur mujhe laga bhagwaan ne bhejji hai abb tu jan hi padhe ga aur main etna suun hogya tha per fer bhi unke pas chala gya aur keh aaya ,excuse me you are soo cute! you are my crush chehra maine abi taak acche se nahi dekha aakho mein dhyan tha. vo etni shaarma gyi aur red pink sa face hogya unka haaye kya btao ese lagta tha koi dool hai mere kehne pe kuch nahi boli mujhe laga dool hai koi joo bolti nahi aur hass ke aur sharmaa ke chali gyi . ",
+      "unka face etna masoom sa chootta sa tab mera sachi man kar raha tha unke pyaare pyaare cheeks ko hath lagao per control karna padha nahi tu vo pyaare pyaare hatho se thapad mar deti .Us din ke baad har din college mein unhe dekhne ke liye bhatakta raha — kabhi dhoop mein, kabhi andhere mein. But wo milti nahi thi. Na jaane kaunsi class thi. Na koi timing. Sirf ek chhoti si umeed thi unka ek jhalak paane ki... Ek mahine tak naye naye jugaad lagaye, bas ek baar unki ek jhalak paane ke liye. ",
+      "Aur phir aaya 15 March 2024 — jab maine unhe confess kiya. Par woh meri zindagi ki sabse badi galti thi... Mujhe jo kehna tha, woh sab bhool gaya. Jaise hi unke paas gaya, unki aankhon mein ek darr tha, ek khamoshi thi. Maine bas kuch keh diya aur wahan se nikal gaya. Sirf itna kehne gaya tha ki unka face dekh loon properly, kyunki maine sirf aankhon se hi pyaar kiya tha."
+    ];
+
+    const images = [
+      "https://i.imgur.com/your-memory-image-1.png", // 1st memory image (9feb wali)
+      "images/barfi ji in gate.png", // 2nd memory image
+      "images/cheeks.gif", // 3rd memory image
+      "images/barfi ji confess.png"  // 4th memory image
+    ];
+
+    function showNext() {
+      const memoryImg = document.getElementById('memoryImg');
+      const captionText = document.getElementById('captionText');
+      const nextBtn = document.querySelector('.next-btn');
+
+      gsap.to([captionText, memoryImg], { opacity: 0, duration: 0.4, onComplete: () => {
+        currentIndex++;
+        if (currentIndex < captions.length) {
+          captionText.innerText = captions[currentIndex];
+          if (images[currentIndex]) {
+            memoryImg.src = images[currentIndex];
+            memoryImg.style.display = "block";
+          } else {
+            memoryImg.style.display = "none";
+          }
+          gsap.to([captionText, memoryImg], { opacity: 1, duration: 0.4 });
+        } else {
+          nextBtn.innerText = 'Continue Story ➤';
+          nextBtn.onclick = () => {
+            gsap.to(".memory-box", { opacity: 0, y: -20, duration: 0.5, onComplete: () => {
+              window.location.href = 'page8.html';
+            }});
+          };
+          gsap.to(nextBtn, { scale: 1.05, duration: 0.3, repeat: 1, yoyo: true });
+        }
+      }});
+    }
+  </script>
+</body>
+</html>

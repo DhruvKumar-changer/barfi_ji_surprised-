@@ -1,0 +1,304 @@
+<!-- Page 3: Heart Rain, Wish Message, Cake Image & Knife with Cut Interaction -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Cake Surprise - Barfi Ji</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: url('https://i.imgur.com/x3Ao8pc.jpg') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      font-family: 'Baloo 2', cursive;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start; /* Heading top pe */
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #2980b9;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      margin: 40px 0 10px 0; /* Top margin zyada, bottom kam */
+      animation: type 5s steps(80) 1 forwards;
+      white-space: normal; /* Allow wrapping */
+      overflow: hidden;
+      border-right: 2px solid #2980b9;
+      max-width: 90vw;
+      align-self: center;
+    }
+
+    @keyframes type {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    .heartRain span {
+      position: absolute;
+      color: #ff66cc;
+      animation: fallHeart 7s linear infinite;
+      transform-origin: center center;
+    }
+
+    @keyframes fallHeart {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .main-content {
+      position: relative;
+      width: 400px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 500px;
+    }
+
+    .cake {
+      width: 280px;   /* Pehle 350px tha, ab thoda chhota kiya */
+      height: auto;
+      animation: float 3s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
+      margin-bottom: 40px; /* Space for knife */
+    }
+
+    .cake img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 0 25px #ff66cc;
+      transition: transform 0.3s ease-out;
+    }
+
+    .cake.cut img {
+      transform: scale(0.9) rotate(5deg);
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .knife {
+      width: 180px;
+      height: auto;
+      position: absolute;
+      top: 340px; /* Just below the cake */
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: grab;
+      animation: glowKnife 2s infinite alternate;
+      z-index: 1;
+    }
+
+    .knife img {
+      width: 100%;
+      height: auto;
+    }
+
+    @keyframes glowKnife {
+      from { filter: drop-shadow(0 0 10px #ff69b4); }
+      to { filter: drop-shadow(0 0 25px #ff1493); }
+    }
+
+    .barfuRain, .hppyRain {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 20;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Music (auto play, loop, controls hidden) -->
+  <audio id="bgMusic" src="music/happy-birthday-357371.mp3" autoplay loop></audio>
+
+  <h1>
+    Meri cute si lovely pari ko 💖 Happy Happy aur Cute Wala Birthday 💖<br>
+    🎂 Ye lo Barfu aapke liye surprise cake — aapke jitna sweet cake,real tho nahi hai per vohi feel dene ki try ki hai ,appne pyaare se haathon se knife ko hold karo aur cake pe maro, iski bhi jaan le lo jaise meri jaan li hai 😘
+  </h1>
+
+
+<div class="main-content" style="position: relative; width: 400px; margin-top: 10px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 500px;">
+  <!-- Left Top Corner Image (farther from cake, horizontally aligned with cake center) -->
+  <img src="images/dance.gif" alt="Left Corner" style="position: absolute; top: 0; left: -260px; width: 160px; height: auto; z-index: 3; border-radius: 16px; box-shadow: 0 0 24px #ffb3da;">
+  <!-- Right Top Corner Image (farther from cake, horizontally aligned with cake center) -->
+  <img src="images/dance 2.gif" alt="Right Corner" style="position: absolute; top: 0; right: -260px; width: 160px; height: auto; z-index: 3; border-radius: 16px; box-shadow: 0 0 24px #b3e0ff;">
+  <div class="cake" id="cake">
+    <img src="images/barfi ji cake.png" alt="Birthday Cake with Barfi written on it">
+  </div>
+  <div class="knife" id="knife" draggable="true">
+    <img src="images/barfi ji knife.png" alt="Knife">
+  </div>
+</div>
+
+  <div class="heartRain" id="hearts"></div>
+  <div class="barfuRain" id="barfuRain"></div>
+  <div class="hppyRain" id="hppyRain"></div>
+
+  <!-- Audio for knife cut - REPLACE WITH YOUR AUDIO FILE -->
+  <audio id="cutSound" src="your-cut-sound.mp3" preload="auto"></audio>
+
+  <script>
+    // Heart Rain
+    const heartEmojis = ['💗 DA', '💖 DA', '💙 DA', '💕 DA', '🧸 DA', '🌸 DA']; // More emoji variety
+    setInterval(() => {
+      const heart = document.createElement("span");
+      heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = `${18 + Math.random() * 10}px`;
+      heart.style.animationDuration = `${6 + Math.random() * 4}s`;
+      heart.style.animationDelay = `-${Math.random() * 4}s`; // Stagger animation start
+      document.getElementById("hearts").appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
+    }, 200);
+
+    // Knife Drag + Cake Cut Detection (mouse only)
+    const knife = document.getElementById("knife");
+    const cake = document.getElementById("cake");
+    const cutSound = document.getElementById("cutSound");
+
+    let dragging = false;
+    let hasCut = false; // To prevent multiple cuts/redirects
+
+    knife.addEventListener('mousedown', (e) => {
+      dragging = true;
+      knife.style.cursor = 'grabbing';
+
+      // Knife ke andar jahan click hua, uska offset nikaalo
+      const rect = knife.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const offsetY = e.clientY - rect.top;
+
+      function onMouseMove(e) {
+        if (dragging) {
+          // Knife ko bilkul cursor ke neeche rakho, offset ke saath
+          const parentRect = knife.parentElement.getBoundingClientRect();
+          knife.style.left = (e.clientX - parentRect.left - offsetX) + "px";
+          knife.style.top = (e.clientY - parentRect.top - offsetY) + "px";
+
+          if (!hasCut) {
+            const knifeRect = knife.getBoundingClientRect();
+            const cakeRect = cake.getBoundingClientRect();
+
+            // Check for intersection
+            if (
+              knifeRect.bottom > cakeRect.top &&
+              knifeRect.top < cakeRect.bottom &&
+              knifeRect.left < cakeRect.right &&
+              knifeRect.right > cakeRect.left
+            ) {
+              hasCut = true;
+              cake.classList.add('cut'); // Add cut visual effect
+              if (cutSound) cutSound.play(); // Play sound
+              gsap.to(cake, { opacity: 0.2, scale: 0.9, duration: 0.8, onComplete: () => {
+                window.location.href = 'page4.html';
+              }});
+            }
+          }
+        }
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', () => {
+        dragging = false;
+        knife.style.cursor = 'grab';
+        document.removeEventListener('mousemove', onMouseMove);
+      }, { once: true });
+    });
+
+    // Dynamic background color
+    const bgColors = ["#ffe6f7", "#e6f0ff", "#fff"];
+    let bgIndex = 0;
+    setInterval(() => {
+      document.body.style.transition = "background 1s";
+      document.body.style.background = bgColors[bgIndex];
+      bgIndex = (bgIndex + 1) % bgColors.length;
+    }, 2500);
+
+    // Barfu Rain (right of cake, sprinkler effect, random sway)
+    setInterval(() => {
+      const cake = document.getElementById("cake");
+      const cakeRect = cake.getBoundingClientRect();
+      const barfu = document.createElement("span");
+      barfu.innerText = "barfu";
+      barfu.style.position = "fixed";
+      // Cake ke right edge se thoda spread (sprinkler)
+      const angle = (Math.random() - 0.5) * 40; // -20deg to +20deg
+      const spread = Math.random() * 60; // 0-60px right
+      barfu.style.left = (cakeRect.right + 10 + spread) + "px";
+      barfu.style.top = (cakeRect.top + cakeRect.height * (0.2 + 0.6 * Math.random())) + "px";
+      barfu.style.fontFamily = "'Lobster', 'Pacifico', cursive";
+      barfu.style.fontSize = "26px";
+      barfu.style.color = "#ff69b4";
+      barfu.style.opacity = "0.92";
+      barfu.style.pointerEvents = "none";
+      barfu.style.zIndex = 20;
+      barfu.style.transform = `rotate(${angle}deg)`;
+      // Random sway distance
+      const sway = (Math.random() - 0.5) * 80; // -40px to +40px
+      barfu.style.setProperty('--sprinkle-x', `${Math.tan(angle * Math.PI/180) * 350 + sway}px`);
+      barfu.style.setProperty('--angle', `${angle}deg`);
+      barfu.style.animation = `fallSprinkleBarfu 4.2s cubic-bezier(.4,.7,.5,1) forwards`;
+      document.getElementById("barfuRain").appendChild(barfu);
+      setTimeout(() => barfu.remove(), 4200);
+    }, 400);
+
+    // Hppy Bdy Rain (left of cake, sprinkler effect, random sway)
+    setInterval(() => {
+      const cake = document.getElementById("cake");
+      const cakeRect = cake.getBoundingClientRect();
+      const hppy = document.createElement("span");
+      hppy.innerText = "hppy bdy";
+      hppy.style.position = "fixed";
+      // Cake ke left edge se thoda spread (sprinkler)
+      const angle = (Math.random() - 0.5) * 40; // -20deg to +20deg
+      const spread = Math.random() * 60; // 0-60px left
+      hppy.style.left = (cakeRect.left - 90 - spread) + "px";
+      hppy.style.top = (cakeRect.top + cakeRect.height * (0.2 + 0.6 * Math.random())) + "px";
+      hppy.style.fontFamily = "'Lobster', 'Pacifico', cursive";
+      hppy.style.fontSize = "24px";
+      hppy.style.color = "#2980b9";
+      hppy.style.opacity = "0.92";
+      hppy.style.pointerEvents = "none";
+      hppy.style.zIndex = 20;
+      hppy.style.transform = `rotate(${-angle}deg)`;
+      // Random sway distance
+      const sway = (Math.random() - 0.5) * 80; // -40px to +40px
+      hppy.style.setProperty('--sprinkle-x', `${-Math.tan(angle * Math.PI/180) * 350 + sway}px`);
+      hppy.style.setProperty('--angle', `${-angle}deg`);
+      hppy.style.animation = `fallSprinkleBarfu 4.2s cubic-bezier(.4,.7,.5,1) forwards`;
+      document.getElementById("hppyRain").appendChild(hppy);
+      setTimeout(() => hppy.remove(), 4200);
+    }, 400);
+
+    // Sprinkle animation (angled fall + sway)
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&display=swap');
+      @keyframes fallSprinkleBarfu {
+        0% { transform: translateY(0) translateX(0) rotate(var(--angle, 0deg)); opacity: 1; }
+        20% { transform: translateY(70px) translateX(calc(var(--sprinkle-x, 0px) * 0.2)) rotate(var(--angle, 0deg)); }
+        40% { transform: translateY(140px) translateX(calc(var(--sprinkle-x, 0px) * 0.4)) rotate(var(--angle, 0deg)); }
+        60% { transform: translateY(210px) translateX(calc(var(--sprinkle-x, 0px) * 0.6)) rotate(var(--angle, 0deg)); }
+        80% { transform: translateY(280px) translateX(calc(var(--sprinkle-x, 0px) * 0.8)) rotate(var(--angle, 0deg)); }
+        100% { transform: translateY(350px) translateX(var(--sprinkle-x, 0px)) rotate(var(--angle, 0deg)); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

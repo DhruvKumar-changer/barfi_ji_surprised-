@@ -1,0 +1,163 @@
+<!-- Page 9: Turning Point Story Continued with Box-by-Box Animation -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Turning Point – Barfi Ji</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at top left, #ffe6f0, #dbeafe);
+      font-family: 'Roboto', sans-serif;
+      color: #1a237e;
+      overflow-x: hidden;
+      padding: 30px 15px;
+      position: relative;
+    }
+
+    .story-container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .story-box {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 20px;
+      padding: 30px 25px;
+      margin-bottom: 30px;
+      min-height: 180px;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+      opacity: 0;
+      transform: translateY(20px) scale(0.98); /* Added scale for initial state */
+      transition: all 0.6s ease;
+      font-size: 18px;
+      font-family: 'Roboto', sans-serif;
+      color: #1e3a8a;
+      font-weight: bold;
+      font-style: normal;
+      line-height: 1.8;
+      border: 3px solid #ff8ab0;
+      animation: glowBorder 4s infinite alternate;
+    }
+
+    @keyframes glowBorder {
+      from { box-shadow: 0 0 3px #ff5e95, 0 0 5px #ff8ab0; }
+      to { box-shadow: 0 0 6px #ff5e95, 0 0 8px #ff8ab0; }
+    }
+
+    .story-box.show {
+      opacity: 1;
+      transform: translateY(0) scale(1) rotate(0deg); /* Reset rotation */
+    }
+
+    .next-btn, .final-btn {
+      display: block;
+      margin: 40px auto;
+      padding: 14px 26px;
+      font-size: 18px;
+      border: none;
+      background: #ff4081;
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 0 10px #ff80ab;
+      text-align: center;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
+    }
+
+    .next-btn:hover, .final-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff80ab, 0 0 25px #ffb3d9;
+    }
+
+    .final-btn {
+      display: none;
+    }
+
+    .emojiRain span {
+      position: absolute;
+      font-size: 22px;
+      opacity: 0.85;
+      animation: fall 12s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+      transform-origin: center center;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(120vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Music (auto play, loop, controls hidden) -->
+  <audio id="bgMusic" src="music/sad.mp3" autoplay loop></audio>
+
+  <div class="emojiRain" id="emojiContainer"></div>
+  <div class="story-container" id="story"></div>
+  <button class="next-btn" id="nextButton" onclick="showNextBatch()">Read Next ➤</button>
+  <a href="page10.html" class="final-btn" id="finalBtn">Last Words for Barfi Ji 💖</a>
+
+  <script>
+    const container = document.getElementById("emojiContainer");
+    const emojis = ['💖', '💙', '💕', '🧸', '✨', '🌸', '💫', '🌟']; // More emoji variety
+    function createEmoji() {
+      const span = document.createElement('span');
+      span.innerText = emojis[Math.floor(Math.random() * emojis.length)] + ' D💙A';
+      span.style.left = Math.random() * 100 + 'vw';
+      span.style.top = '-20px';
+      span.style.fontSize = `${22 + Math.random() * 10}px`;
+      span.style.animationDuration = `${10 + Math.random() * 4}s`;
+      span.style.animationDelay = `-${Math.random() * 5}s`;
+      container.appendChild(span);
+      setTimeout(() => span.remove(), 14000);
+    }
+    setInterval(createEmoji, 250);
+const storyLines = [
+  `Us din ke baad maine unse door rehna hi theek samjha taaki unhe uncomfortable feel na ho. Unhone bhi mujhe avoid kiya, shayad isliye ki main hurt na ho jaun. Mujhe unka yeh sochna pyaara laga, lekin khud se naraazgi hui ki maine unki personal space cross ki.`,
+  
+  `Waqt ke saath meri feelings aur gehri hoti gayi, aur maine soch liya ki unhe kabhi disturb nahi karunga. Phir ek din mere naye dost ne unhe mere liye request bhej di—jisse mujhe bilkul achha nahi laga. Mujhe laga ki agar vo majboori mein baat karein to mera pyaar bhi lafange jaisa ho jayega.`,
+  
+  `Main unse sorry bolna chahta tha par unse milna mushkil tha. Ek din unhone khud meri peeche wali seat pe baithkar mujhe surprise kar diya. Tab laga ki bhagwaan ka koi plan hai. Maine unhe message kiya, baat hui, lekin unka cold behaviour dekhke maine dur rehna hi theek samjha.`,
+  
+  `Phir ek din unse galti se mujhe C++ file send ho gayi, aur us galti se dobara baat shuru ho gayi. Dheere-dheere vo Aditi, meri Barfi ji ban gayi. Baatein hoti thi, lekin chup-chup, taaki unki image safe rahe. Aur bas, tab se meri zindagi mein ek nayi roshni aayi—jo sirf meri thi: meri Barfi ji.`
+];
+
+
+    let currentIndex = 0;
+    const storyDiv = document.getElementById("story");
+    const nextBtn = document.getElementById("nextButton");
+    const finalBtn = document.getElementById("finalBtn");
+
+    function showNextBatch() {
+      const batchSize = 3;
+      const end = Math.min(currentIndex + batchSize, storyLines.length);
+      for (let i = currentIndex; i < end; i++) {
+        const box = document.createElement("div");
+        box.className = "story-box";
+        box.innerText = storyLines[i];
+        storyDiv.appendChild(box);
+        // Use GSAP for more dynamic appearance
+        gsap.fromTo(box, { opacity: 0, y: 30, scale: 0.95, rotation: Math.random() * 4 - 2 }, {
+          opacity: 1, y: 0, scale: 1, rotation: 0, duration: 0.6, ease: "back.out(1.7)",
+          delay: 0.1 * (i - currentIndex)
+        });
+      }
+      currentIndex = end;
+      if (currentIndex >= storyLines.length) {
+        nextBtn.style.display = "none";
+        finalBtn.style.display = "block";
+        gsap.fromTo(finalBtn, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.8, ease: "elastic.out(1, 0.5)" });
+      }
+    }
+
+    showNextBatch();
+  </script>
+</body>
+</html>

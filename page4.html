@@ -1,0 +1,146 @@
+<!-- Page 4: Deep Emotional Message with Dynamic Effects -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Special Message for Barfi Ji</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Baloo+2:wght@600&family=Pacifico&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: url('https://i.imgur.com/dgEdz5z.gif') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Baloo 2', cursive;
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+    }
+
+    .message {
+      font-size: 24px;
+      color: #0b3c91;
+      background: linear-gradient(145deg, #ffffffcc, #ffd6ebcc);
+      border-radius: 32px;
+      padding: 40px 30px;
+      max-width: 95%;
+      animation: floatWords 5s ease-in-out infinite;
+      text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.3);
+      font-family: 'Pacifico', cursive;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+      border: 3px dashed #ff66cc;
+      z-index: 2;
+    }
+
+    @keyframes floatWords {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.01); } /* Added subtle scale */
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    .yes-btn {
+      margin-top: 40px;
+      padding: 16px 32px;
+      font-size: 22px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #ff66b2, #4a90e2);
+      color: white;
+      border: none;
+      border-radius: 24px;
+      cursor: pointer;
+      animation: flames 2s infinite alternate;
+      font-family: 'Baloo 2', cursive;
+      box-shadow: 0 0 25px #ff66cc;
+      z-index: 2;
+      transition: transform 0.3s ease; /* Smooth transition for hover */
+    }
+
+    @keyframes flames {
+      0% { box-shadow: 0 0 10px #ff66cc; transform: scale(1); }
+      100% { box-shadow: 0 0 25px #ff1493; transform: scale(1.05); }
+    }
+
+    .yes-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .floatingHearts span {
+      position: absolute;
+      opacity: 0.8;
+      z-index: 1;
+      animation: heartFall 10s linear infinite;
+      transform-origin: center center;
+    }
+
+    @keyframes heartFall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Music (auto play, loop, controls hidden) -->
+  <audio id="bgMusic" src="music/happy-birthday-357371.mp3" autoplay loop></audio>
+
+  <!-- Top pe image -->
+  <img src="images/glad.gif" alt="Barfi Top" style="display:block; margin: 0 auto 28px auto; max-width: 220px; border-radius: 18px; box-shadow: 0 0 18px #ffb3da;">
+
+  <div class="message">
+    <p>🎂 Barfi ji, very very Happy Birthday to you 💝</p>
+    <p>Aapko duniya mein laake Bhagwaan ji ne mujhe sabse bada gift diya hai 🧸</p>
+    <p>Main apne is cute se teddy ko hamesha khush rakhunga, jab tak Bhagwaan ne saath rehne ya baat karne ki permission di hai 🥺</p>
+    <p>💌 Mujhe aapko kuch aur bhi kehna hai...</p>
+    <p>Agar dekhna chahti ho to apne chhote-chhote cute-cute haathon se "Yes" pe click karo ⬇️</p>
+    <p style="font-size:18px; color:#d72660; margin-top:18px;">
+      Barfi ji, vaise toh maine bahut mehnat aur feeling se yeh memories banayi hain.<br>
+      Agar aap nahi dekhna chahti toh sidha last words ke button pe click kar sakti ho.
+    </p>
+  </div>
+
+  <button class="yes-btn" onclick="goToNext()">Yes, mai dekho gi, last words eske baad dekho gi</button>
+  <button class="yes-btn" style="background:linear-gradient(135deg,#4a90e2,#ff66b2);margin-left:15px;" onclick="goToLastWords()">Last Words For Barfi Ji 💌</button>
+
+  <div class="floatingHearts" id="heartContainer"></div>
+
+  <script>
+    function goToNext() {
+      // Add a subtle animation before redirecting
+      gsap.to(".message", { opacity: 0, y: -20, duration: 0.5 });
+      gsap.to(".yes-btn", { scale: 0.8, opacity: 0, duration: 0.5 });
+      setTimeout(() => { window.location.href = 'page5.html'; }, 500);
+    }
+
+    function goToLastWords() {
+      gsap.to(".message", { opacity: 0, y: -20, duration: 0.5 });
+      gsap.to(".yes-btn", { scale: 0.8, opacity: 0, duration: 0.5 });
+      setTimeout(() => { window.location.href = 'page10.html'; }, 500);
+    }
+
+    const heartContainer = document.getElementById('heartContainer');
+    const heartColors = ['#ff66cc', '#ff3366', '#66ccff', '#cc99ff', '#ffb3da', '#aaffaa']; // More colors
+    const emojis = ['🧸', '💗', '💙', '💖', '💕', '🌸', '✨']; // More emoji variety
+
+    setInterval(() => {
+      const span = document.createElement('span');
+      span.innerText = emojis[Math.floor(Math.random() * emojis.length)] + ' DA';
+      span.style.left = Math.random() * 100 + 'vw';
+      span.style.fontSize = `${18 + Math.random() * 12}px`;
+      span.style.color = heartColors[Math.floor(Math.random() * heartColors.length)];
+      span.style.top = '-30px';
+      span.style.animationDuration = `${8 + Math.random() * 4}s`;
+      span.style.animationDelay = `-${Math.random() * 4}s`; // Stagger animation start
+      heartContainer.appendChild(span);
+      setTimeout(() => span.remove(), 12000);
+    }, 300);
+  </script>
+</body>
+</html>
