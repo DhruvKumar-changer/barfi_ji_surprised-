@@ -11,8 +11,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: url('https://i.imgur.com/dgEdz5z.gif') no-repeat center center fixed;
-      background-size: cover;
+      animation: bgChange 8s ease-in-out infinite alternate;
+      background: #fff;
       height: 100vh;
       display: flex;
       flex-direction: column;
@@ -23,6 +23,13 @@
       overflow: hidden;
       position: relative;
       text-align: center;
+    }
+
+    @keyframes bgChange {
+      0%   { background: #fff; }
+      33%  { background: #e3f0ff; }   /* Light blue */
+      66%  { background: #ffe3f6; }   /* Light pink */
+      100% { background: #fff; }
     }
 
     .message {
